@@ -1,9 +1,11 @@
-main()
+items()
 
-async function main(){
+async function items(){
   const products = await getProducts()
-  console.log(products)
-  displayProducts(products)
+  for (product of products){
+    displayProducts(product)
+    console.log(products)
+  }
 }
 
 function getProducts(){
@@ -21,14 +23,16 @@ function getProducts(){
   })
 }
 
-let elt = document.getElementById('items');
-elt.innerHTML = `<a href="">
-<article>
-  <img src="" alt="">
-  <h3 class="productName"></h3>
-  <p class="</p>
-</article>
-</a>`;
+function displayProducts() {
+  document.getElementById("items").innerHTML +=`
+  <a href="">
+  <article>
+    <img src="${product.imageUrl}" alt="${product.altTxt}">
+    <h3 class="productName">${product.name}</h3>
+    <p class="productDescription">${product.description}</p>
+  </article>
+  </a>`
+}
 
 
 
