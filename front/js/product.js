@@ -1,7 +1,7 @@
 import {
   getBasket,
   addBasket
-} from './front/js/basket.js';
+} from '../js/basket.js';
 
 (async function () {
   const productId = getProductId()
