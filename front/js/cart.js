@@ -1,17 +1,24 @@
 
 
-const elt = document.getElementById('mon-lien');    // On récupère l'élément sur lequel on veut détecter le clic
-elt.addEventListener('click', function() {          // On écoute l'événement click
-    ;               // On change le contenu de notre élément pour afficher "C'est cliqué !"
-});
 
-// Action sur le bouton ajouter au panier
-// vérifier la condition avant d'ajouter au panier
-// S'il est déja présent même id et couleur augmenter la quantité
-/* Procédural */
+import {
+  getBasket,
+  addBasket
+} from '../js/basket.js';
 
 
-document.getElementById("cart__items").innerHTML +=`
+
+
+
+
+
+
+
+
+
+
+  for (let i = 0; i < product.colors.length; i += 1) {
+    document.getElementById("cart__items").innerHTML +=`
 // boucle qui va chercher les éléments dans le tableau
 <article class="cart__item" data-id="{product-ID}" data-color="{product-color}">
 <div class="cart__item__img">
@@ -35,3 +42,8 @@ document.getElementById("cart__items").innerHTML +=`
 </div>
 </article>
     `
+  }
+
+
+
+

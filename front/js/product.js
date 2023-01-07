@@ -4,10 +4,8 @@ import {
 } from '../js/basket.js';
 
 (async function () {
-  const productId = getProductId()
-  console.log(productId)
-  const product = await getProduct(productId)
-  console.log(product)
+  const productId = getProductId();
+  const product = await getProduct(productId);
   hydrateProduct(product)
 })()
 
@@ -31,17 +29,22 @@ function getProduct(productId) {
 }
 
 function hydrateProduct(product) {
-  document.getElementsByClassName('item__img')[0].innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}"></img>`
-  document.getElementById("title").innerHTML += `${product.name}`
-  document.getElementById("price").innerHTML += `${product.price}`
-  document.getElementById("colors").innerHTML += `
-    <option value="vert">vert</option>
-    <option value="blanc">blanc</option>`
+  document.getElementsByClassName('item__img')[0].innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}"></img>`;
+  document.getElementById("title").innerHTML += `${product.name}`;
+  document.getElementById("price").innerHTML += `${product.price}`;
+  for (let i = 0; i < product.colors.length; i += 1) {
+    document.getElementById("colors").innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`
+  }
 }
 
 const elt = document.getElementById('addToCart'); // On récupère l'élément sur lequel on veut détecter le clic
-elt.addEventListener('click', function (event) { // On écoute l'événement click
-  event.addBasket(); // On crée un tableau s'il n'existe pas
+elt.addEventListener('click', function () { // On écoute l'événement click
+  let productAdd = {
+    id: getProductId(),
+    color: document.getElementById("colors").value,
+    quantity: parseInt(document.getElementById("quantity").value),
+  }
+  addBasket(productAdd) // On crée un tableau s'il n'existe pas
 
 });
 

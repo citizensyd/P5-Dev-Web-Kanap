@@ -1,24 +1,30 @@
-import {
-    getProductId
-} from './front/js/product.js';
+function saveBasket(basket) {
+    let basketString = JSON.stringify(basket);
+    localStorage.setItem("basket", basketString);
+}
 
 function getBasket() {
     let basket = localStorage.getItem("basket");
     if (basket == null) {
         return [];
     } else {
-        return JSON.parse(basket);
+        return JSON.parse(basket)
     }
 }
 
-function addBasket(product) {
+function addBasket(productAdd) {
     let basket = getBasket();
-    let foundProduct = basket.find(p => p.id == productId)
+    let foundProduct = basket.find((p => p.id == productAdd.id) && (y => y.color == productAdd.color));
+    if (productAdd.quantity > 100){
+        productAdd.quantity = 100
+    }
     if (foundProduct != undefined) {
-        foundProduct.quantity++;
+        let result = foundProduct.quantity += productAdd.quantity;
+        if (result > 100){
+            foundProduct.quantity = 100
+        }
     } else {
-        product.quantity = 1;
-        basket.push(product);
+        basket.push(productAdd);
     }
     saveBasket(basket);
 }
