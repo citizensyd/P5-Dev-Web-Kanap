@@ -1,7 +1,10 @@
 import {
-  getBasket,
   addBasket
 } from '../js/basket.js';
+
+import {
+  getProduct
+} from '../js/generique.js';
 
 (async function () {
   const productId = getProductId();
@@ -13,20 +16,7 @@ function getProductId() {
   return new URL(location.href).searchParams.get("id")
 }
 
-function getProduct(productId) {
-  return fetch(`http://localhost:3000/api/products/${productId}`)
-    .then(function (res) {
-      if (res.ok) {
-        return res.json();
-      }
-    })
-    .then(function (value) {
-      return value
-    })
-    .catch(function (error) {
-      alert(error)
-    })
-}
+
 
 function hydrateProduct(product) {
   document.getElementsByClassName('item__img')[0].innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}"></img>`;
@@ -49,5 +39,6 @@ elt.addEventListener('click', function () { // On écoute l'événement click
 });
 
 export {
-  getProductId
+  getProductId,
+  getProduct
 };
