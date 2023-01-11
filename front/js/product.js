@@ -19,9 +19,11 @@ function getProductId() {
 
 
 function hydrateProduct(product) {
+  console.log(product);
   document.getElementsByClassName('item__img')[0].innerHTML += `<img src="${product.imageUrl}" alt="${product.altTxt}"></img>`;
   document.getElementById("title").innerHTML += `${product.name}`;
   document.getElementById("price").innerHTML += `${product.price}`;
+  document.getElementById("description").innerHTML += `${product.description}`;
   for (let i = 0; i < product.colors.length; i += 1) {
     document.getElementById("colors").innerHTML += `<option value="${product.colors[i]}">${product.colors[i]}</option>`
   }
