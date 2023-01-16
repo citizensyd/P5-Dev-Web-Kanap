@@ -1,29 +1,17 @@
-items()
+import {
+  getProducts
+} from '../js/generique.js';
+
+items();
 
 async function items(){
-  const products = await getProducts()
-  for (product of products){
-    displayProducts(product)
-    console.log(products)
+  const products = await getProducts();
+  for (let product of products){
+    displayProducts(product);
   }
 }
 
-function getProducts(){
-  return fetch(`http://localhost:3000/api/products`)
-  .then(function(res) {
-    if (res.ok) {
-      return res.json();
-    }
-  })
-  .then(function(value) {
-    return value
-  })
-  .catch(function(error) {
-    alert(error)
-  })
-}
-
-function displayProducts() {
+function displayProducts(product) {
   document.getElementById("items").innerHTML +=`
   <a href="product.html?id=${product._id}">
   <article>
@@ -31,9 +19,8 @@ function displayProducts() {
     <h3 class="productName">${product.name}</h3>
     <p class="productDescription">${product.description}</p>
   </article>
-  </a>`
-}
-
+  </a>`;
+};
 
 
 

@@ -1,3 +1,7 @@
+import {
+    getProduct
+} from "../js/generique.js"
+
 function saveBasket(basket) {
     let basketString = JSON.stringify(basket);
     localStorage.setItem("basket", basketString);
@@ -6,7 +10,7 @@ function saveBasket(basket) {
 function getBasket() {
     let basket = localStorage.getItem("basket");
     if (basket == null) {
-        return [];
+        return basket = [];
     } else {
         return JSON.parse(basket)
     }
@@ -29,42 +33,49 @@ function addBasket(productAdd) {
     saveBasket(basket);
 }
 
-function removeFromBasket(product) {
+function removeFromBasket(productId, productColor) {
     let basket = getBasket();
-    basket = basket.filter(p => p.id != product.id);
+    basket = basket.filter((item) => !(item.id == productId && item.color == productColor));
+    console.log(basket);
     saveBasket(basket);
 }
 
-function changeQuantity(product, quantity) {
+function changeQuantity(productId, productColor, quantity) {
     let basket = getBasket();
-    let foundProduct = basket.find(p => p.id == product.id);
+    let foundProduct = basket.find((item) => (item.id == productId && item.color == productColor));
     if (foundProduct != undefined) {
-        foundProduct.quantity += quantity;
+        foundProduct.quantity = quantity;
+        location.reload();
         if (foundProduct.quantity <= 0) {
             removeFromBasket(foundProduct);
+            location.reload();
         } else {
             saveBasket(basket);
-        }
-    }
+        };
+    };
 }
 
 function getNumberProduct() {
     let basket = getBasket();
     let number = 0;
     for (let product of basket) {
-        number += product.quantity;
+        let productQuantity = parseInt(product.quantity);
+        number += productQuantity;
     }
     return number;
 }
 
-function getTotalPrice() {
+async function getTotalPrice() {
     let basket = getBasket();
     let total = 0;
     for (let product of basket) {
-        total += product.quantity * product.price;
+        let prod = await getProduct(product.id);
+        let productQuantity = parseInt(product.quantity);
+        total += productQuantity * prod.price;
     }
     return total;
 }
+
 
 export {
     getBasket,
@@ -72,5 +83,6 @@ export {
     removeFromBasket,
     changeQuantity,
     getNumberProduct,
-    getTotalPrice
+    getTotalPrice,
+    saveBasket
 };
