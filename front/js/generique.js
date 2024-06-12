@@ -1,6 +1,6 @@
 // Récupérer un produit dans l'api
 function getProduct(productId) {
-  return fetch(`http://localhost:3000/api/products/${productId}`)
+  return fetch(`https://web-dev-kanap-back.vercel.app/api/products/${productId}`)
     .then(function (res) {
       if (res.ok) {
         return res.json();
@@ -17,7 +17,7 @@ function getProduct(productId) {
 // Récupérer tous les produits dans l'api
 async function getProducts() {
   try {
-    const res = await fetch(`http://localhost:3000/api/products`);
+    const res = await fetch(`https://web-dev-kanap-back.vercel.app/api/products`);
     const products = res.json();
     return products
   } catch (error) {
